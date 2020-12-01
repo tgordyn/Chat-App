@@ -4,7 +4,7 @@ import {StyleSheet, View, Text} from 'react-native';
 const App = () => {
   return (
     <View>
-      <Text>Chat Grupo B</Text>
+      <Text>Chat Grupo B hola</Text>
     </View>
   );
 };
