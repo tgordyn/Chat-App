@@ -8,11 +8,6 @@ const App = () => {
       <ChatNavigation />
     </NavigationContainer>
   );
-  // return (
-  //   <View>
-  //     <Text>Prueba</Text>
-  //   </View>
-  // );
 };
 
 const styles = StyleSheet.create({});
