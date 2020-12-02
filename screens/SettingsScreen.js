@@ -1,30 +1,41 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Colors} from '../utils/Colors';
+import SettingOption from '../components/SettingOption';
 
 const SettingsScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => props.navigation.navigate('Port')}>
-        <Text style={styles.buttonText}>Username, IP and Port</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => props.navigation.navigate('Help')}>
-        <Text style={styles.buttonText}>Help</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => props.navigation.navigate('About')}>
-        <Text style={styles.buttonText}>About</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => console.log('Log out')}>
-        <Text style={styles.buttonText}>Log out</Text>
-      </TouchableOpacity>
+      <SettingOption
+        navigation={props.navigation}
+        routeName="Port"
+        title="Username, IP and Port"
+        arrow={true}
+        style={{marginTop: 25}}
+      />
+
+      <SettingOption
+        navigation={props.navigation}
+        routeName="Help"
+        title="Help"
+        arrow={true}
+        style={{marginTop: 20}}
+      />
+      <View style={styles.hr}></View>
+      <SettingOption
+        navigation={props.navigation}
+        routeName="About"
+        title="About"
+        arrow={true}
+        style={{marginBottom: 20}}
+      />
+
+      <SettingOption
+        navigation={props.navigation}
+        title="Dark mode"
+        switch={true}
+      />
+      <SettingOption title="Log out" style={{marginTop: 20}} />
     </View>
   );
 };
@@ -34,19 +45,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-    paddingVertical: 10,
   },
-  button: {
+  hr: {
+    height: 0.5,
     width: '100%',
-    marginVertical: 10,
-    backgroundColor: Colors.lightMode.lightGrey,
-    paddingVertical: 13,
-    paddingHorizontal: 40,
-  },
-  buttonText: {
-    fontSize: 16,
-    color: Colors.lightMode.darkGrey,
-    // paddingLeft: 25,
+    backgroundColor: Colors.lightMode.grey,
   },
 });
 

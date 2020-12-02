@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
 import {Colors} from '../../utils/Colors';
+import {Icon} from 'react-native-elements';
 
 const TypeMessage = () => {
   return (
@@ -17,7 +12,12 @@ const TypeMessage = () => {
       <TouchableOpacity
         onPress={() => console.log('press')}
         style={styles.sendButton}>
-        <Text style={styles.arrow}>V</Text>
+        <Icon
+          name="chevron-forward-outline"
+          type="ionicon"
+          color="white"
+          size={20}
+        />
       </TouchableOpacity>
     </View>
   );
