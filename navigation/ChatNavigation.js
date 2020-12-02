@@ -6,13 +6,18 @@ import {createStackNavigator} from '@react-navigation/stack';
 import PortScreen from '../screens/PortScreen';
 import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';
+import {Colors} from '../utils/Colors';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName="Chat"
+      activeColor={Colors.lightMode.blue}
+      inactiveColor={Colors.lightMode.grey}
+      barStyle={{backgroundColor: Colors.lightMode.lightGrey}}>
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Settings" component={MyStack} />
     </Tab.Navigator>
