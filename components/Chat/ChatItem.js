@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 15,
     color: Colors.lightMode.darkGrey,
+    fontFamily: "Roboto-Bold"
   },
 });
 export default ChatItem;
