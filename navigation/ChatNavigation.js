@@ -1,6 +1,7 @@
 import React from 'react';
 import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import {Text} from "react-native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 //import {Ionicons} from "react-native-vector-icons/Ionicons";
@@ -17,21 +18,38 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Chat"
-      activeColor={Colors.lightMode.blue}
-      inactiveColor={Colors.lightMode.grey}
-      barStyle={{backgroundColor: Colors.lightMode.lightGrey}}>
+      // options={{
+      //   activeColor: Colors.lightMode.blue,
+      //   inactiveColor: Colors.lightMode.grey,
+      //   barStyle: {backgroundColor: Colors.lightMode.lightGrey}
+      // }}
+      //activeColor={Colors.lightMode.blue}
+      //inactiveColor={Colors.lightMode.grey}
+      //barStyle={{backgroundColor: Colors.lightMode.lightGrey}}
+  
+    tabBarOptions={{
+      style:{
+        backgroundColor: Colors.lightMode.lightGrey,
+      },
+      labelStyle: {
+        fontFamily: "Roboto-Bold",
+      },
+      activeTintColor: Colors.lightMode.blue,
+      inactiveTintColor: Colors.lightMode.grey,
+      keyboardHidesTabBar: true
+    }}
+      >
       <Tab.Screen
         name="Chat"
         component={ChatScreen}
         options={{
-          tabBarLabel: 'Chat',
-          tabBarIcon: () => {
+          tabBarLabel: ({color})=> <Text style={{fontFamily: "Roboto-Bold", color: color, fontSize: 13 }}>Chat</Text>,
+          tabBarIcon: ({color}) => {
             return (
               <Icon
-                name="sc-telegram"
-                name="comment"
-                type="evilicon"
-                color={Colors.darkMode.grey}
+                name="chatbubbles"
+                type="ionicon"
+                color={color}
                 size={30}
               />
             );
@@ -42,13 +60,13 @@ function MyTabs() {
         name="Settings"
         component={MyStack}
         options={{
-          tabBarLabel: 'Settings',
-          tabBarIcon: () => {
+          tabBarLabel:  ({color})=> <Text style={{fontFamily: "Roboto-Bold", color: color, fontSize: 13 }}>Settings</Text>, 
+          tabBarIcon: ({color}) => {
             return (
               <Icon
-                name="gear"
-                type="evilicon"
-                color={Colors.darkMode.grey}
+                name="settings"
+                type="ionicon"
+                color={color}
                 size={30}
               />
             );
