@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {Colors} from '../../utils/Colors';
-import {Chat} from '../../utils/dummy-data';
+import {Colors, DARKMODE} from '../../utils/Colors';
 
 const ChatItem = (props) => {
   return (
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   received: {
-    backgroundColor: 'white',
+    backgroundColor: DARKMODE ? Colors.darkMode.grey : 'white',
 
     paddingVertical: 8,
     paddingHorizontal: 20,
@@ -40,7 +39,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   sent: {
-    backgroundColor: Colors.lightMode.lightBlue,
+    backgroundColor: DARKMODE
+      ? Colors.darkMode.blue
+      : Colors.lightMode.lightBlue,
 
     paddingVertical: 8,
     paddingHorizontal: 20,
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: 15,
-    color: Colors.lightMode.darkGrey,
-    fontFamily: "Roboto-Bold"
+    color: DARKMODE ? 'white' : Colors.lightMode.darkGrey,
+    fontFamily: 'Roboto-Bold',
   },
 });
 export default ChatItem;

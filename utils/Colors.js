@@ -13,3 +13,5 @@ export const Colors = {
     lightGrey: '#B1B1B1',
   },
 };
+
+export const DARKMODE = true;

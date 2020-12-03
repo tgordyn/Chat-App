@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Colors} from '../utils/Colors';
+import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
 
 const SettingsScreen = (props) => {
@@ -42,13 +42,15 @@ const SettingsScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: DARKMODE ? Colors.darkMode.darkGrey : 'white',
     alignItems: 'center',
   },
   hr: {
     height: 0.5,
     width: '100%',
-    backgroundColor: Colors.lightMode.grey,
+    backgroundColor: DARKMODE
+      ? Colors.lightMode.darkGrey
+      : Colors.lightMode.grey,
   },
 });
 

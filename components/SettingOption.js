@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, Switch, Text, Alert} from 'react-native';
-import {Colors} from '../utils/Colors';
+import {Colors, DARKMODE} from '../utils/Colors';
 import {Icon} from 'react-native-elements';
 
 const SettingOptions = (props) => {
@@ -49,7 +49,9 @@ const SettingOptions = (props) => {
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    backgroundColor: Colors.lightMode.lightGrey,
+    backgroundColor: DARKMODE
+      ? Colors.darkMode.grey
+      : Colors.lightMode.lightGrey,
     paddingVertical: 13,
     paddingHorizontal: 40,
     flexDirection: 'row',
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: Colors.lightMode.darkGrey,
+    color: DARKMODE ? Colors.lightMode.grey : Colors.lightMode.darkGrey,
   },
 });
 export default SettingOptions;
