@@ -3,8 +3,7 @@ import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
-//import {Ionicons} from "react-native-vector-icons/Ionicons";
-import PortScreen from '../screens/PortScreen';
+import AccountScreen from '../screens/AccountScreen';
 import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';
 import {Colors} from '../utils/Colors';
@@ -16,6 +15,9 @@ const Stack = createStackNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator
+      tabBarOptions={{
+        keyboardHidesTabBar: true,
+      }}
       initialRouteName="Chat"
       activeColor={Colors.lightMode.blue}
       inactiveColor={Colors.lightMode.grey}
@@ -62,7 +64,7 @@ function MyStack() {
   return (
     <Stack.Navigator initialRouteName="Settings">
       <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="Port" component={PortScreen} />
+      <Stack.Screen name="Account" component={AccountScreen} />
       <Stack.Screen name="Help" component={HelpScreen} />
       <Stack.Screen name="About" component={AboutScreen} />
     </Stack.Navigator>

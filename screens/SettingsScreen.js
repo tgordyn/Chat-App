@@ -8,8 +8,8 @@ const SettingsScreen = (props) => {
     <View style={styles.screen}>
       <SettingOption
         navigation={props.navigation}
-        routeName="Port"
-        title="Username, IP and Port"
+        routeName="Account"
+        title="Account settings"
         arrow={true}
         style={{marginTop: 25}}
       />
@@ -35,7 +35,6 @@ const SettingsScreen = (props) => {
         title="Dark mode"
         switch={true}
       />
-      <SettingOption title="Log out" style={{marginTop: 20}} />
     </View>
   );
 };

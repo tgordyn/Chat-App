@@ -1,15 +1,26 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, Switch, Text} from 'react-native';
+import {StyleSheet, TouchableOpacity, Switch, Text, Alert} from 'react-native';
 import {Colors} from '../utils/Colors';
 import {Icon} from 'react-native-elements';
 
 const SettingOptions = (props) => {
   const [darkMode, setDarkMode] = useState(false);
+
+  const handleLogOut = () => {
+    Alert.alert('Confirm Log Out', 'Are you sure you want to log out?', [
+      {text: 'Cancel', style: 'cancel'},
+      {text: 'I am sure'},
+    ]);
+  };
   return (
     <TouchableOpacity
       style={{...props.style, ...styles.button}}
       onPress={() => {
-        props.routeName ? props.navigation.navigate(props.routeName) : null;
+        props.routeName
+          ? props.navigation.navigate(props.routeName)
+          : props.logout
+          ? handleLogOut()
+          : null;
       }}>
       <Text style={styles.buttonText}>{props.title}</Text>
       {props.arrow ? (
