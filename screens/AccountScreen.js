@@ -1,23 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, TextInput} from 'react-native';
 import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TextInputMask from 'react-native-text-input-mask';
+import {load, save} from '../utils/AsyncStorage.js';
 
-const PortScreen = () => {
+const AccountScreen = () => {
+  const [enteredConfig, setEnteredConfig] = useState('');
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredIp, setEnteredIP] = useState('');
   const [enteredPort, setEnteredPort] = useState('');
 
-  const inputLetterHandler = (inputText) => {
-    // inputText = inputText.replace(/\d+|^\s+$/g, '');
-    setEnteredUsername(inputText);
-  };
+  useEffect(() => {
+    // console.log(enteredConfig, 'entered');
+    load(setEnteredConfig);
+  }, []);
 
-  const inputIPHandler = (inputIP) => {
-    setEnteredIP(inputIP);
-  };
+  // const inputLetterHandler = (inputText) => {
+  //   // inputText = inputText.replace(/\d+|^\s+$/g, '');
+  //   setEnteredUsername(inputText);
+  // };
+
+  // const inputIPHandler = (inputIP) => {
+  //   setEnteredIP(inputIP);
+  // };
 
   const inputPortHandler = (inputPort) => {
     inputPort = inputPort.replace(/[^0-9]/g, '');
@@ -25,7 +32,8 @@ const PortScreen = () => {
   };
 
   const LogInHandler = () => {
-    console.log('test');
+    // console.log(enteredConfig);
+    save(enteredUsername);
   };
 
   return (
@@ -33,9 +41,9 @@ const PortScreen = () => {
       <Text style={styles.title}>Username</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Username"
+          placeholder={enteredConfig.name}
           style={styles.input}
-          onChangeText={(event) => inputLetterHandler(event)}
+          onChangeText={(event) => setEnteredUsername(event)}
           value={enteredUsername}
           placeholderTextColor={
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
@@ -47,12 +55,12 @@ const PortScreen = () => {
         <TextInputMask
           mask={'[099]{.}[099]{.}[099]{.}[099]'}
           keyboardType="numeric"
-          placeholder="IP"
+          placeholder={enteredConfig.ip}
           style={styles.input}
           placeholderTextColor={
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
           }
-          onChangeText={(event) => inputIPHandler(event)}
+          onChangeText={(event) => setEnteredIP(event)}
           value={enteredIp}
         />
       </View>
@@ -60,7 +68,7 @@ const PortScreen = () => {
       <View style={styles.inputContainer}>
         <TextInput
           keyboardType="numeric"
-          placeholder="Port"
+          placeholder={enteredConfig.port}
           style={styles.input}
           onChangeText={(event) => inputPortHandler(event)}
           value={enteredPort}
@@ -69,9 +77,12 @@ const PortScreen = () => {
           }
         />
       </View>
-      <TouchableOpacity style={styles.buttonContainer} onPress={LogInHandler}>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => LogInHandler()}>
         <Text style={styles.button}>Save</Text>
       </TouchableOpacity>
+
       <Text style={styles.titleLogout}>
         You can come back whenever you want!
       </Text>
@@ -130,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PortScreen;
+export default AccountScreen;
