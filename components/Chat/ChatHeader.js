@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {Colors} from '../../utils/Colors';
+import {Colors, DARKMODE} from '../../utils/Colors';
 
 const ChatHeader = (props) => {
   return (
@@ -16,11 +16,13 @@ const ChatHeader = (props) => {
 const styles = StyleSheet.create({
   header: {
     height: 65,
-    backgroundColor: 'white',
+    backgroundColor: DARKMODE ? Colors.darkMode.grey : 'white',
     flexDirection: 'row',
     paddingHorizontal: 30,
     alignItems: 'center',
-    borderBottomColor: Colors.lightMode.grey,
+    borderBottomColor: DARKMODE
+      ? Colors.darkMode.darkGrey
+      : Colors.lightMode.grey,
     borderBottomWidth: 0.5,
   },
   avatarContainer: {
@@ -39,6 +41,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 17,
+    color: DARKMODE ? 'white' : 'black',
   },
 });
 export default ChatHeader;

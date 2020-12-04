@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, Text, TextInput} from 'react-native';
-import {Colors} from '../utils/Colors';
+import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TextInputMask from 'react-native-text-input-mask';
@@ -37,6 +37,9 @@ const PortScreen = () => {
           style={styles.input}
           onChangeText={(event) => inputLetterHandler(event)}
           value={enteredUsername}
+          placeholderTextColor={
+            DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
+          }
         />
       </View>
       <Text style={styles.title}>IP</Text>
@@ -46,6 +49,9 @@ const PortScreen = () => {
           keyboardType="numeric"
           placeholder="IP"
           style={styles.input}
+          placeholderTextColor={
+            DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
+          }
           onChangeText={(event) => inputIPHandler(event)}
           value={enteredIp}
         />
@@ -58,6 +64,9 @@ const PortScreen = () => {
           style={styles.input}
           onChangeText={(event) => inputPortHandler(event)}
           value={enteredPort}
+          placeholderTextColor={
+            DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
+          }
         />
       </View>
       <TouchableOpacity style={styles.buttonContainer} onPress={LogInHandler}>
@@ -80,7 +89,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: 'white',
+    backgroundColor: DARKMODE ? Colors.darkMode.darkGrey : 'white',
   },
   title: {
     fontSize: 14,
@@ -88,6 +97,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     letterSpacing: 0.8,
     marginTop: 20,
+    color: DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.darkGrey,
   },
   inputContainer: {
     width: '100%',
@@ -98,7 +108,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
     width: '100%',
     paddingHorizontal: 40,
-    backgroundColor: Colors.lightMode.lightGrey,
+    backgroundColor: DARKMODE
+      ? Colors.darkMode.grey
+      : Colors.lightMode.lightGrey,
+    color: DARKMODE ? 'white' : Colors.lightMode.darkGrey,
   },
   buttonContainer: {
     width: '85%',

@@ -1,17 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
 import ChatNavigation from './navigation/ChatNavigation';
 import {NavigationContainer} from '@react-navigation/native';
+import {ThemeProvider} from './utils/ThemeContext';
 
 const App = () => {
- 
   return (
-    <NavigationContainer>
-      <ChatNavigation />
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <ChatNavigation />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;

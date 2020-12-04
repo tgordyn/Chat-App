@@ -1,13 +1,19 @@
 import React from 'react';
 import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
-import {Colors} from '../../utils/Colors';
+import {Colors, DARKMODE} from '../../utils/Colors';
 import {Icon} from 'react-native-elements';
 
 const TypeMessage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.input}>
-        <TextInput placeholder="Type message" />
+        <TextInput
+          style={styles.inputText}
+          placeholderTextColor={
+            DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
+          }
+          placeholder="Type message"
+        />
       </View>
       <TouchableOpacity
         onPress={() => console.log('press')}
@@ -25,23 +31,27 @@ const TypeMessage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: DARKMODE ? Colors.darkMode.grey : 'white',
     height: 60,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 30,
-    borderTopColor: Colors.lightMode.grey,
+    borderTopColor: DARKMODE ? Colors.darkMode.darkGrey : Colors.lightMode.grey,
     borderTopWidth: 0.5,
+  },
+  inputText: {
+    color: DARKMODE ? 'white' : Colors.lightMode.darkGrey,
   },
   input: {
     width: '85%',
-    borderWidth: 1,
+    borderWidth: DARKMODE ? 0 : 1,
     paddingHorizontal: 15,
     borderColor: Colors.lightMode.grey,
+    backgroundColor: DARKMODE ? Colors.lightMode.darkGrey : 'transparent',
     borderRadius: 20,
-    height: 40,
+    height: 37,
   },
   sendButton: {
     backgroundColor: Colors.lightMode.blue,
