@@ -1,15 +1,32 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Colors} from '../utils/Colors';
+import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
+import {useTheme} from '../utils/ThemeContext';
 
 const SettingsScreen = (props) => {
+  const {colors, isDark} = useTheme();
+
+  const styles = {
+    screen: {
+      flex: 1,
+      backgroundColor: colors.background,
+      alignItems: 'center',
+    },
+    hr: {
+      height: 0.5,
+      width: '100%',
+      backgroundColor: DARKMODE
+        ? Colors.lightMode.darkGrey
+        : Colors.lightMode.grey,
+    },
+  };
   return (
     <View style={styles.screen}>
       <SettingOption
         navigation={props.navigation}
-        routeName="Port"
-        title="Username, IP and Port"
+        routeName="Account"
+        title="Account settings"
         arrow={true}
         style={{marginTop: 25}}
       />
@@ -35,22 +52,23 @@ const SettingsScreen = (props) => {
         title="Dark mode"
         switch={true}
       />
-      <SettingOption title="Log out" style={{marginTop: 20}} />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  hr: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: Colors.lightMode.grey,
-  },
-});
+// const styles = StyleSheet.create({
+//   screen: {
+//     flex: 1,
+//     backgroundColor: DARKMODE ? Colors.darkMode.darkGrey : 'white',
+//     alignItems: 'center',
+//   },
+//   hr: {
+//     height: 0.5,
+//     width: '100%',
+//     backgroundColor: DARKMODE
+//       ? Colors.lightMode.darkGrey
+//       : Colors.lightMode.grey,
+//   },
+// });
 
 export default SettingsScreen;

@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import {StyleSheet, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import ChatItem from '../components/Chat/ChatItem';
 import ChatHeader from '../components/Chat/ChatHeader';
 import TypeMessage from '../components/Chat/TypeMessage';
-import {Colors} from '../utils/Colors';
+import {Colors, DARKMODE} from '../utils/Colors';
 import {Chat} from '../utils/dummy-data';
 
 const ChatScreen = () => {
@@ -31,7 +31,9 @@ const ChatScreen = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: Colors.lightMode.lightGrey,
+    backgroundColor: DARKMODE
+      ? Colors.darkMode.darkGrey
+      : Colors.lightMode.lightGrey,
   },
 });
 
