@@ -8,6 +8,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import PortScreen from '../screens/PortScreen';
 import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';
+import IconTabBar from "../components/BottomTabBar/IconTabBar";
+import LabelTabBar from "../components/BottomTabBar/LabelTabBar";
 import {Colors} from '../utils/Colors';
 import {Icon} from 'react-native-elements';
 
@@ -18,15 +20,6 @@ function MyTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Chat"
-      // options={{
-      //   activeColor: Colors.lightMode.blue,
-      //   inactiveColor: Colors.lightMode.grey,
-      //   barStyle: {backgroundColor: Colors.lightMode.lightGrey}
-      // }}
-      //activeColor={Colors.lightMode.blue}
-      //inactiveColor={Colors.lightMode.grey}
-      //barStyle={{backgroundColor: Colors.lightMode.lightGrey}}
-  
     tabBarOptions={{
       style:{
         backgroundColor: Colors.lightMode.lightGrey,
@@ -43,34 +36,16 @@ function MyTabs() {
         name="Chat"
         component={ChatScreen}
         options={{
-          tabBarLabel: ({color})=> <Text style={{fontFamily: "Roboto-Bold", color: color, fontSize: 13 }}>Chat</Text>,
-          tabBarIcon: ({color}) => {
-            return (
-              <Icon
-                name="chatbubbles"
-                type="ionicon"
-                color={color}
-                size={30}
-              />
-            );
-          },
+          tabBarLabel: ({color})=> <LabelTabBar color={color}>Chat</LabelTabBar>,
+          tabBarIcon: ({color}) => <IconTabBar name="chatbubbles" color={color} />
         }}
       />
       <Tab.Screen
         name="Settings"
         component={MyStack}
         options={{
-          tabBarLabel:  ({color})=> <Text style={{fontFamily: "Roboto-Bold", color: color, fontSize: 13 }}>Settings</Text>, 
-          tabBarIcon: ({color}) => {
-            return (
-              <Icon
-                name="settings"
-                type="ionicon"
-                color={color}
-                size={30}
-              />
-            );
-          },
+          tabBarLabel: ({color})=> <LabelTabBar color={color}>Settings</LabelTabBar>,
+          tabBarIcon: ({color}) => <IconTabBar name="settings" color={color} />
         }}
       />
     </Tab.Navigator>
@@ -78,12 +53,14 @@ function MyTabs() {
 }
 function MyStack() {
   return (
-    <Stack.Navigator initialRouteName="Settings">
+    
+     <Stack.Navigator initialRouteName="Settings"  >
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="Port" component={PortScreen} />
       <Stack.Screen name="Help" component={HelpScreen} />
       <Stack.Screen name="About" component={AboutScreen} />
     </Stack.Navigator>
+    
   );
 }
 export default MyTabs;

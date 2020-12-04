@@ -1,10 +1,18 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {Icon} from "react-native-elements";
 
-const HelpScreen = () => {
+import {useTheme} from "@react-navigation/native";
+//import {useTheme} from "../assets/ThemeProvider";  
+
+const HelpScreen = (props) => {
+  const {colors} = useTheme();
+  // const {children} = props
+  // const {colors, isDark} = useTheme()
+//console.log("colores",colors.background)
+//console.log(props)
   return (
-    <View style={styles.screen}>
+    
+    <View style={{backgroundColor: colors.background, ...styles.screen}}>
       <Text>HelpScreen</Text>
     </View>
   );
@@ -15,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    fontFamily: "Roboto-Bold"
+    
   },
 });
 export default HelpScreen;
