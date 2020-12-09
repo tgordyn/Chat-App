@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View} from 'react-native';
+import {View} from 'react-native';
 import {List} from 'react-native-paper';
 import {Icon} from 'react-native-elements';
 import {useTheme} from '../utils/ThemeContext';
@@ -16,22 +16,23 @@ const HelpScreen = (props) => {
       backgroundColor: colors.options,
     },
     styleSectionTitle: {
-      fontFamily: 'Roboto',
-      fontSize: 22,
-      color: colors.font
+      fontFamily: 'Roboto-Bold',
+      fontSize: 17,
+      color: colors.font,
     },
     styleTitle: {
       fontFamily: 'Roboto',
-      fontSize: 20,
-      color: colors.font
+      fontSize: 16,
+      color: colors.font,
     },
     listItem: {
-      color: colors.font
+      color: colors.font,
+      marginLeft: -30,
     },
     hr: {
       height: 0.5,
       width: '100%',
-      backgroundColor: colors.font
+      backgroundColor: colors.font,
     },
   };
 
@@ -54,7 +55,7 @@ const HelpScreen = (props) => {
               name="help-circle"
               type="ionicon"
               color={expandedUser ? colors.blue : colors.font}
-              size={35}
+              size={25}
             />
           )}>
           <List.Item
@@ -78,7 +79,7 @@ const HelpScreen = (props) => {
               name="help-circle"
               type="ionicon"
               color={expandedIp ? colors.blue : colors.font}
-              size={35}
+              size={25}
             />
           )}>
           <List.Item
@@ -101,7 +102,7 @@ const HelpScreen = (props) => {
               name="help-circle"
               type="ionicon"
               color={expandedPort ? colors.blue : colors.font}
-              size={35}
+              size={25}
             />
           )}>
           <List.Item

@@ -29,9 +29,8 @@ const ChatItem = (props) => {
       backgroundColor: colors.backgroundSent,
     },
     message: {
-      fontSize: 15,
+      fontSize: 14,
       color: colors.font,
-      fontFamily: 'Roboto-Bold',
     },
   };
   const bubbleStyle = props.sent ? styles.sent : styles.received;
