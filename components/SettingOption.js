@@ -4,6 +4,7 @@ import {Colors} from '../utils/Colors';
 import {useTheme} from '../utils/ThemeContext';
 import {Icon} from 'react-native-elements';
 
+
 const SettingOption = (props) => {
   const {setScheme, isDark} = useTheme();
   const {colors} = useTheme();
@@ -29,7 +30,11 @@ const SettingOption = (props) => {
     <TouchableOpacity
       style={{...props.style, ...styles.button}}
       onPress={() => {
-        props.routeName ? props.navigation.navigate(props.routeName) : null;
+        props.routeName
+          ? props.navigation.navigate(props.routeName)
+          : props.logout
+          ? handleLogOut()
+          : null;
       }}>
       <Text style={styles.buttonText}>{props.title}</Text>
       {props.arrow ? (

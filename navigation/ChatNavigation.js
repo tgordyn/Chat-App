@@ -117,6 +117,7 @@ function MyStack() {
         component={AboutScreen}
       />
     </Stack.Navigator>
+    
   );
 }
 export default MyTabs;
