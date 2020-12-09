@@ -53,6 +53,7 @@ function MyTabs() {
       </Stack.Navigator>
     );
   }
+
   return (
     <Tab.Navigator
       tabBarOptions={{
