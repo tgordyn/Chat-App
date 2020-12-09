@@ -1,97 +1,91 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {View} from 'react-native';
 import {List} from 'react-native-paper';
 import {Icon} from 'react-native-elements';
 import {useTheme} from '../utils/ThemeContext';
-//import {useTheme} from '@react-navigation/native';
-//import {useTheme} from "../assets/ThemeProvider";
-import {Colors, DARKMODE} from '../utils/Colors';
-
 
 const HelpScreen = (props) => {
   const [expandedUser, setExpandedUser] = useState(false);
   const [expandedIp, setExpandedIp] = useState(false);
   const [expandedPort, setExpandedPort] = useState(false);
-  const {children} = props;
+  // const {children} = props;
   const {colors, isDark} = useTheme();
-console.log("darkmodeee", isDark)
 
-  const styles= {
+  const styles = {
     screen: {
       flex: 1,
-      backgroundColor: colors.options
+      backgroundColor: colors.backgroundChat,
+      margin: 0,
     },
     styleSectionTitle: {
-      fontFamily: "Roboto", 
-      fontSize:22,
-      color: isDark
-      ? Colors.lightMode.grey
-      : Colors.lightMode.darkGrey
+      fontFamily: 'Roboto',
+      fontSize: 17,
+      fontWeight: 'bold',
+      color: colors.font,
     },
     styleTitle: {
-      fontFamily: "Roboto", 
-      fontSize:20,
-      color: isDark
-      ? Colors.lightMode.grey
-      : Colors.lightMode.darkGrey
+      fontFamily: 'Roboto',
+      fontSize: 15,
+      color: colors.font,
     },
     listItem: {
-      color: isDark
-      ? Colors.lightMode.grey
-      : Colors.lightMode.darkGrey
+      color: colors.font,
     },
     hr: {
       height: 0.5,
       width: '100%',
-      backgroundColor: DARKMODE
-        ? Colors.lightMode.darkGrey
-        : Colors.lightMode.grey,
+      backgroundColor: colors.font,
     },
-  }
-  
+  };
+
   return (
-    
-    <List.Section title="Preguntas Frecuentes" titleStyle={{...styles.styleSectionTitle}} style={styles.screen}>
+    <List.Section
+      title="Preguntas Frecuentes"
+      titleStyle={{...styles.styleSectionTitle}}
+      style={styles.screen}>
       <View style={styles.hr}></View>
       <List.Accordion
         expandedUser={expandedUser}
         onPress={() => setExpandedUser(!expandedUser)}
         title="Configuración de Usuario"
-        titleStyle={{...styles.styleTitle, color: expandedUser? colors.blue:colors.font}}
-        //theme={{colors: {primary: '#4595F4'}}}
+        titleStyle={{
+          ...styles.styleTitle,
+          color: expandedUser ? colors.blue : colors.font,
+        }}
         left={(props) => (
           <Icon
             name="help-circle"
             type="ionicon"
-            color={expandedUser ? '#4595F4' : Colors.lightMode.darkGrey}
-            size={35}
+            color={expandedUser ? colors.blue : colors.font}
+            size={25}
           />
         )}>
-        <List.Item 
+        <List.Item
           title="Ingresar su nombre de usuario"
-          titleStyle={{...styles.listItem, fontFamily: "Roboto-Bold"}}
+          titleStyle={{...styles.listItem, fontFamily: 'Roboto-Bold'}}
           description="La configuración admite campos alfa-numéricos"
           descriptionStyle={{...styles.listItem}}
-
         />
       </List.Accordion>
       <List.Accordion
         title="Configuración de IP"
         expandedUser={expandedIp}
         onPress={() => setExpandedIp(!expandedIp)}
-        titleStyle={{...styles.styleTitle, color: expandedIp? '#4595F4':colors.font}}
-        //theme={{colors: {primary: '#4595F4'}}}
+        titleStyle={{
+          ...styles.styleTitle,
+          color: expandedIp ? colors.blue : colors.font,
+        }}
         left={(props) => (
           <Icon
             name="help-circle"
             type="ionicon"
-            color={expandedIp ? '#4595F4' :Colors.lightMode.darkGrey}
-            size={35}
+            color={expandedIp ? colors.blue : colors.font}
+            size={25}
           />
         )}>
         <List.Item
           title="Ingresar número de IP"
-          titleStyle={{...styles.listItem, fontFamily: "Roboto-Bold"}}
+          titleStyle={{...styles.listItem, fontFamily: 'Roboto-Bold'}}
           description="La configuración sólo admite campos numéricos"
           descriptionStyle={{...styles.listItem}}
         />
@@ -100,19 +94,21 @@ console.log("darkmodeee", isDark)
         title="Configuración de Puerto"
         expandedPort={expandedPort}
         onPress={() => setExpandedPort(!expandedPort)}
-        titleStyle={{...styles.styleTitle, color: expandedPort? '#4595F4':colors.font}}
-        //theme={{colors: {primary: '#4595F4'}}}
+        titleStyle={{
+          ...styles.styleTitle,
+          color: expandedPort ? colors.blue : colors.font,
+        }}
         left={(props) => (
           <Icon
             name="help-circle"
             type="ionicon"
-            color={expandedPort ? '#4595F4' : Colors.lightMode.darkGrey}
-            size={35}
+            color={expandedPort ? colors.blue : colors.font}
+            size={25}
           />
         )}>
         <List.Item
           title="Ingresar número de Puerto"
-          titleStyle={{...styles.listItem, fontFamily: "Roboto-Bold"}}
+          titleStyle={{...styles.listItem, fontFamily: 'Roboto-Bold'}}
           description="La configuración sólo admite campos numéricos"
           descriptionStyle={{...styles.listItem}}
         />
@@ -120,6 +116,5 @@ console.log("darkmodeee", isDark)
     </List.Section>
   );
 };
-
 
 export default HelpScreen;
