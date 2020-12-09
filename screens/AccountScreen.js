@@ -1,14 +1,27 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, TextInput} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Alert,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Icon} from 'react-native-elements';
 import TextInputMask from 'react-native-text-input-mask';
+import {load, save} from '../utils/AsyncStorage.js';
 
-const PortScreen = () => {
+const AccountScreen = () => {
+  const [enteredConfig, setEnteredConfig] = useState('');
   const [enteredUsername, setEnteredUsername] = useState('');
   const [enteredIp, setEnteredIP] = useState('');
   const [enteredPort, setEnteredPort] = useState('');
+
+  useEffect(() => {
+    load(setEnteredConfig);
+  }, []);
 
   const inputLetterHandler = (inputText) => {
     // inputText = inputText.replace(/\d+|^\s+$/g, '');
@@ -25,7 +38,19 @@ const PortScreen = () => {
   };
 
   const LogInHandler = () => {
-    console.log('test');
+    save(enteredUsername);
+  };
+
+  const handleLogOut = () => {
+    Alert.alert('Confirm Log Out', 'Are you sure you want to log out?', [
+      {text: 'Cancel', style: 'cancel'},
+      {
+        text: 'I am sure',
+        onPress: () => {
+          setEnteredConfig('');
+        },
+      },
+    ]);
   };
 
   return (
@@ -33,7 +58,7 @@ const PortScreen = () => {
       <Text style={styles.title}>Username</Text>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Username"
+          placeholder={enteredConfig.name}
           style={styles.input}
           onChangeText={(event) => inputLetterHandler(event)}
           value={enteredUsername}
@@ -47,7 +72,7 @@ const PortScreen = () => {
         <TextInputMask
           mask={'[099]{.}[099]{.}[099]{.}[099]'}
           keyboardType="numeric"
-          placeholder="IP"
+          placeholder={enteredConfig.ip}
           style={styles.input}
           placeholderTextColor={
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
@@ -60,7 +85,7 @@ const PortScreen = () => {
       <View style={styles.inputContainer}>
         <TextInput
           keyboardType="numeric"
-          placeholder="Port"
+          placeholder={enteredConfig.port}
           style={styles.input}
           onChangeText={(event) => inputPortHandler(event)}
           value={enteredPort}
@@ -69,18 +94,28 @@ const PortScreen = () => {
           }
         />
       </View>
-      <TouchableOpacity style={styles.buttonContainer} onPress={LogInHandler}>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => LogInHandler()}>
         <Text style={styles.button}>Save</Text>
       </TouchableOpacity>
       <Text style={styles.titleLogout}>
         You can come back whenever you want!
       </Text>
-      <SettingOption
-        title="Log Out"
-        logout={true}
-        style={{marginTop: 8}}
-        arrow={true}
-      />
+      <TouchableOpacity
+        style={styles.buttonLogout}
+        onPress={() => {
+          handleLogOut();
+        }}>
+        <Text style={styles.buttonText}>Log out</Text>
+
+        <Icon
+          name="chevron-forward-outline"
+          type="ionicon"
+          color={'black'}
+          size={20}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -128,6 +163,19 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     marginTop: 50,
   },
+  buttonLogout: {
+    width: '100%',
+    backgroundColor: Colors.lightMode.lightGrey,
+    paddingVertical: 13,
+    paddingHorizontal: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: Colors.lightMode.darkGrey,
+  },
 });
 
-export default PortScreen;
+export default AccountScreen;

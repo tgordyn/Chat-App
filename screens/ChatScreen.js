@@ -1,13 +1,23 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+
 import {ScrollView} from 'react-native-gesture-handler';
 import ChatItem from '../components/Chat/ChatItem';
 import ChatHeader from '../components/Chat/ChatHeader';
 import TypeMessage from '../components/Chat/TypeMessage';
 import {Colors, DARKMODE} from '../utils/Colors';
 import {Chat} from '../utils/dummy-data';
+import {useTheme} from '../utils/ThemeContext';
 
 const ChatScreen = () => {
+  const {colors, isDark} = useTheme();
+
+  const styles = {
+    screen: {
+      flex: 1,
+      backgroundColor: colors.backgroundChat,
+    },
+  };
   return (
     <View style={styles.screen}>
       <ChatHeader />

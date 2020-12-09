@@ -23,7 +23,13 @@ export const lightColors = {
   options: '#F2F2F2',
   background: 'white',
   backgroundChat: '#F2F2F2',
+  backgroundInput: 'white',
+  backgroundSent: '#CDE3FC',
+  backgroundReceived: 'white',
   font: '#5F5F5F',
+  topNavigation: 'white',
+  bottomNavigation: '#F2F2F2',
+  borderWidth: 1,
 };
 export const darkColors = {
   darkGrey: '#02070D',
@@ -35,7 +41,13 @@ export const darkColors = {
   options: '#393939',
   background: '#02070D',
   backgroundChat: '#02070D',
-  font: '#B1B1B1',
+  backgroundInput: '#707070',
+  backgroundSent: '#4595F4',
+  backgroundReceived: '#393939',
+  font: 'white',
+  topNavigation: '#393939',
+  bottomNavigation: '#393939',
+  borderWidth: 0,
 };
 
 export let DARKMODE = false;

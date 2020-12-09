@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+//import {View} from 'react-native';
 import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
 import {useTheme} from '../utils/ThemeContext';
 
 const SettingsScreen = (props) => {
   const {colors, isDark} = useTheme();
- 
   const styles = {
     screen: {
       flex: 1,

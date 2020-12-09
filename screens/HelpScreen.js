@@ -8,7 +8,6 @@ import {useTheme} from '../utils/ThemeContext';
 import {Colors, DARKMODE} from '../utils/Colors';
 
 
-
 const HelpScreen = (props) => {
   const [expandedUser, setExpandedUser] = useState(false);
   const [expandedIp, setExpandedIp] = useState(false);
@@ -20,22 +19,26 @@ console.log("darkmodeee", isDark)
   const styles= {
     screen: {
       flex: 1,
-      //justifyContent: 'center',
-      //alignItems: 'center',
-      backgroundColor: colors.background,
+      backgroundColor: colors.options
     },
     styleSectionTitle: {
       fontFamily: "Roboto", 
       fontSize:22,
-      //color: colors.font,
+      color: isDark
+      ? Colors.lightMode.grey
+      : Colors.lightMode.darkGrey
     },
     styleTitle: {
       fontFamily: "Roboto", 
       fontSize:20,
-      //color: colors.font,
+      color: isDark
+      ? Colors.lightMode.grey
+      : Colors.lightMode.darkGrey
     },
     listItem: {
-      color: colors.font,
+      color: isDark
+      ? Colors.lightMode.grey
+      : Colors.lightMode.darkGrey
     },
     hr: {
       height: 0.5,
@@ -48,26 +51,28 @@ console.log("darkmodeee", isDark)
   
   return (
     
-    <List.Section title="Preguntas Frecuentes" titleStyle={styles.styleSectionTitle} style={styles.screen}>
+    <List.Section title="Preguntas Frecuentes" titleStyle={{...styles.styleSectionTitle}} style={styles.screen}>
       <View style={styles.hr}></View>
       <List.Accordion
         expandedUser={expandedUser}
         onPress={() => setExpandedUser(!expandedUser)}
         title="Configuración de Usuario"
-        //titleStyle={styles.styleTitle}
-        titleStyle={{...styles.styleTitle, color: expandedUser? '#4595F4':colors.font}}
+        titleStyle={{...styles.styleTitle, color: expandedUser? colors.blue:colors.font}}
         //theme={{colors: {primary: '#4595F4'}}}
         left={(props) => (
           <Icon
             name="help-circle"
             type="ionicon"
-            color={expandedUser ? '#4595F4' : '#B1B1B1'}
+            color={expandedUser ? '#4595F4' : Colors.lightMode.darkGrey}
             size={35}
           />
         )}>
-        <List.Item style={styles.listItem}
+        <List.Item 
           title="Ingresar su nombre de usuario"
+          titleStyle={{...styles.listItem, fontFamily: "Roboto-Bold"}}
           description="La configuración admite campos alfa-numéricos"
+          descriptionStyle={{...styles.listItem}}
+
         />
       </List.Accordion>
       <List.Accordion
@@ -80,58 +85,41 @@ console.log("darkmodeee", isDark)
           <Icon
             name="help-circle"
             type="ionicon"
-            color={expandedIp ? '#4595F4' : '#B1B1B1'}
+            color={expandedIp ? '#4595F4' :Colors.lightMode.darkGrey}
             size={35}
           />
         )}>
         <List.Item
           title="Ingresar número de IP"
+          titleStyle={{...styles.listItem, fontFamily: "Roboto-Bold"}}
           description="La configuración sólo admite campos numéricos"
+          descriptionStyle={{...styles.listItem}}
         />
       </List.Accordion>
       <List.Accordion
         title="Configuración de Puerto"
         expandedPort={expandedPort}
         onPress={() => setExpandedPort(!expandedPort)}
-        //titleStyle={styles.styleTitle}
         titleStyle={{...styles.styleTitle, color: expandedPort? '#4595F4':colors.font}}
         //theme={{colors: {primary: '#4595F4'}}}
         left={(props) => (
           <Icon
             name="help-circle"
             type="ionicon"
-            color={expandedPort ? '#4595F4' : '#B1B1B1'}
+            color={expandedPort ? '#4595F4' : Colors.lightMode.darkGrey}
             size={35}
           />
         )}>
         <List.Item
           title="Ingresar número de Puerto"
+          titleStyle={{...styles.listItem, fontFamily: "Roboto-Bold"}}
           description="La configuración sólo admite campos numéricos"
+          descriptionStyle={{...styles.listItem}}
         />
       </List.Accordion>
     </List.Section>
   );
 };
 
-// const styles = StyleSheet.create({
-//   screen: {
-//     flex: 1,
-//     //justifyContent: 'center',
-//     //alignItems: 'center',
-//     backgroundColor: "red"
-//   },
-//   styleSectionTitle: {
-//     fontFamily: "Roboto", 
-//     fontSize:22
-//   },
-//   styleTitle: {
-//     fontFamily: "Roboto", 
-//     fontSize:20
-//   },
-//   hr: {
-//     height: 0.5,
-//     width: '100%',
-//     backgroundColor: Colors.lightMode.grey
-//   },
-// });
+
 export default HelpScreen;

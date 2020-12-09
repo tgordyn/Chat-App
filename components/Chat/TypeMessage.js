@@ -1,9 +1,49 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import {View, TextInput, TouchableOpacity} from 'react-native';
 import {Colors, DARKMODE} from '../../utils/Colors';
 import {Icon} from 'react-native-elements';
+import {useTheme} from '../../utils/ThemeContext';
 
 const TypeMessage = () => {
+  const {colors, isDark} = useTheme();
+  const styles = {
+    container: {
+      backgroundColor: colors.topNavigation,
+      height: 60,
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 30,
+      borderTopColor: colors.background,
+      borderTopWidth: 0.5,
+    },
+    inputText: {
+      color: colors.font,
+    },
+    input: {
+      width: '85%',
+      borderWidth: colors.borderWidth,
+      paddingHorizontal: 15,
+      borderColor: colors.grey,
+      backgroundColor: colors.backgroundInput,
+      borderRadius: 20,
+      height: 37,
+    },
+    sendButton: {
+      backgroundColor: colors.blue,
+      width: 35,
+      height: 35,
+      borderRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    arrow: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.input}>
@@ -28,43 +68,5 @@ const TypeMessage = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: DARKMODE ? Colors.darkMode.grey : 'white',
-    height: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 30,
-    borderTopColor: DARKMODE ? Colors.darkMode.darkGrey : Colors.lightMode.grey,
-    borderTopWidth: 0.5,
-  },
-  inputText: {
-    color: DARKMODE ? 'white' : Colors.lightMode.darkGrey,
-  },
-  input: {
-    width: '85%',
-    borderWidth: DARKMODE ? 0 : 1,
-    paddingHorizontal: 15,
-    borderColor: Colors.lightMode.grey,
-    backgroundColor: DARKMODE ? Colors.lightMode.darkGrey : 'transparent',
-    borderRadius: 20,
-    height: 37,
-  },
-  sendButton: {
-    backgroundColor: Colors.lightMode.blue,
-    width: 35,
-    height: 35,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  arrow: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
 
 export default TypeMessage;
