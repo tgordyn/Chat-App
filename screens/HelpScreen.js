@@ -2,28 +2,61 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {List} from 'react-native-paper';
 import {Icon} from 'react-native-elements';
-
-import {useTheme} from '@react-navigation/native';
+import {useTheme} from '../utils/ThemeContext';
+//import {useTheme} from '@react-navigation/native';
 //import {useTheme} from "../assets/ThemeProvider";
 import {Colors, DARKMODE} from '../utils/Colors';
+
+
 
 const HelpScreen = (props) => {
   const [expandedUser, setExpandedUser] = useState(false);
   const [expandedIp, setExpandedIp] = useState(false);
   const [expandedPort, setExpandedPort] = useState(false);
   const {children} = props;
-  //const {colors, isDark} = useTheme();
+  const {colors, isDark} = useTheme();
+console.log("darkmodeee", isDark)
+
+  const styles= {
+    screen: {
+      flex: 1,
+      //justifyContent: 'center',
+      //alignItems: 'center',
+      backgroundColor: colors.background,
+    },
+    styleSectionTitle: {
+      fontFamily: "Roboto", 
+      fontSize:22,
+      //color: colors.font,
+    },
+    styleTitle: {
+      fontFamily: "Roboto", 
+      fontSize:20,
+      //color: colors.font,
+    },
+    listItem: {
+      color: colors.font,
+    },
+    hr: {
+      height: 0.5,
+      width: '100%',
+      backgroundColor: DARKMODE
+        ? Colors.lightMode.darkGrey
+        : Colors.lightMode.grey,
+    },
+  }
   
   return (
     
-    <List.Section title="Preguntas Frecuentes" titleStyle={styles.styleSectionTitle}>
+    <List.Section title="Preguntas Frecuentes" titleStyle={styles.styleSectionTitle} style={styles.screen}>
       <View style={styles.hr}></View>
       <List.Accordion
         expandedUser={expandedUser}
         onPress={() => setExpandedUser(!expandedUser)}
         title="Configuración de Usuario"
-        titleStyle={styles.styleTitle}
-        theme={{colors: {primary: '#4595F4'}}}
+        //titleStyle={styles.styleTitle}
+        titleStyle={{...styles.styleTitle, color: expandedUser? '#4595F4':colors.font}}
+        //theme={{colors: {primary: '#4595F4'}}}
         left={(props) => (
           <Icon
             name="help-circle"
@@ -32,7 +65,7 @@ const HelpScreen = (props) => {
             size={35}
           />
         )}>
-        <List.Item
+        <List.Item style={styles.listItem}
           title="Ingresar su nombre de usuario"
           description="La configuración admite campos alfa-numéricos"
         />
@@ -41,8 +74,8 @@ const HelpScreen = (props) => {
         title="Configuración de IP"
         expandedUser={expandedIp}
         onPress={() => setExpandedIp(!expandedIp)}
-        titleStyle={styles.styleTitle}
-        theme={{colors: {primary: '#4595F4'}}}
+        titleStyle={{...styles.styleTitle, color: expandedIp? '#4595F4':colors.font}}
+        //theme={{colors: {primary: '#4595F4'}}}
         left={(props) => (
           <Icon
             name="help-circle"
@@ -60,8 +93,9 @@ const HelpScreen = (props) => {
         title="Configuración de Puerto"
         expandedPort={expandedPort}
         onPress={() => setExpandedPort(!expandedPort)}
-        titleStyle={styles.styleTitle}
-        theme={{colors: {primary: '#4595F4'}}}
+        //titleStyle={styles.styleTitle}
+        titleStyle={{...styles.styleTitle, color: expandedPort? '#4595F4':colors.font}}
+        //theme={{colors: {primary: '#4595F4'}}}
         left={(props) => (
           <Icon
             name="help-circle"
@@ -79,24 +113,25 @@ const HelpScreen = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  styleSectionTitle: {
-    fontFamily: "Roboto", 
-    fontSize:22
-  },
-  styleTitle: {
-    fontFamily: "Roboto", 
-    fontSize:20
-  },
-  hr: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: Colors.lightMode.grey
-  },
-});
+// const styles = StyleSheet.create({
+//   screen: {
+//     flex: 1,
+//     //justifyContent: 'center',
+//     //alignItems: 'center',
+//     backgroundColor: "red"
+//   },
+//   styleSectionTitle: {
+//     fontFamily: "Roboto", 
+//     fontSize:22
+//   },
+//   styleTitle: {
+//     fontFamily: "Roboto", 
+//     fontSize:20
+//   },
+//   hr: {
+//     height: 0.5,
+//     width: '100%',
+//     backgroundColor: Colors.lightMode.grey
+//   },
+// });
 export default HelpScreen;
