@@ -1,16 +1,15 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Switch, Text, Alert} from 'react-native';
-import {Colors, DARKMODE} from '../utils/Colors';
-import {Icon} from 'react-native-elements';
+import {TouchableOpacity, Switch, Text} from 'react-native';
+import {Colors} from '../utils/Colors';
 import {useTheme} from '../utils/ThemeContext';
+import {Icon} from 'react-native-elements';
 
-const SettingOptions = (props) => {
+const SettingOption = (props) => {
   const {setScheme, isDark} = useTheme();
   const {colors} = useTheme();
   const toggleScheme = () => {
     isDark ? setScheme('light') : setScheme('dark');
   };
-
   const styles = {
     button: {
       width: '100%',
@@ -26,23 +25,11 @@ const SettingOptions = (props) => {
       color: colors.font,
     },
   };
-
-  const handleLogOut = () => {
-    Alert.alert('Confirm Log Out', 'Are you sure you want to log out?', [
-      {text: 'Cancel', style: 'cancel'},
-      {text: 'I am sure'},
-    ]);
-  };
-
   return (
     <TouchableOpacity
       style={{...props.style, ...styles.button}}
       onPress={() => {
-        props.routeName
-          ? props.navigation.navigate(props.routeName)
-          : props.logout
-          ? handleLogOut()
-          : null;
+        props.routeName ? props.navigation.navigate(props.routeName) : null;
       }}>
       <Text style={styles.buttonText}>{props.title}</Text>
       {props.arrow ? (
@@ -68,21 +55,4 @@ const SettingOptions = (props) => {
   );
 };
 
-// const styles = StyleSheet.create({
-//   button: {
-//     width: '100%',
-//     backgroundColor: colors.background,
-//       // ? Colors.darkMode.grey
-//       // : Colors.lightMode.lightGrey,
-//     paddingVertical: 13,
-//     paddingHorizontal: 40,
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//   },
-//   buttonText: {
-//     fontSize: 16,
-//     color: DARKMODE ? Colors.lightMode.grey : Colors.lightMode.darkGrey,
-//   },
-// });
-export default SettingOptions;
+export default SettingOption;
