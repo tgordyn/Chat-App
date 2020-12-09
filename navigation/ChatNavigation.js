@@ -3,10 +3,7 @@ import ChatScreen from '../screens/ChatScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import {Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  createStackNavigator,
-  HeaderStyleInterpolators,
-} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import AccountScreen from '../screens/AccountScreen';
 import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';

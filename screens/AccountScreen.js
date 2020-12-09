@@ -1,8 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Alert,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {Colors, DARKMODE} from '../utils/Colors';
 import SettingOption from '../components/SettingOption';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Icon} from 'react-native-elements';
 import TextInputMask from 'react-native-text-input-mask';
 import {load, save} from '../utils/AsyncStorage.js';
 
@@ -13,18 +20,17 @@ const AccountScreen = () => {
   const [enteredPort, setEnteredPort] = useState('');
 
   useEffect(() => {
-    // console.log(enteredConfig, 'entered');
     load(setEnteredConfig);
   }, []);
 
-  // const inputLetterHandler = (inputText) => {
-  //   // inputText = inputText.replace(/\d+|^\s+$/g, '');
-  //   setEnteredUsername(inputText);
-  // };
+  const inputLetterHandler = (inputText) => {
+    // inputText = inputText.replace(/\d+|^\s+$/g, '');
+    setEnteredUsername(inputText);
+  };
 
-  // const inputIPHandler = (inputIP) => {
-  //   setEnteredIP(inputIP);
-  // };
+  const inputIPHandler = (inputIP) => {
+    setEnteredIP(inputIP);
+  };
 
   const inputPortHandler = (inputPort) => {
     inputPort = inputPort.replace(/[^0-9]/g, '');
@@ -32,8 +38,19 @@ const AccountScreen = () => {
   };
 
   const LogInHandler = () => {
-    // console.log(enteredConfig);
     save(enteredUsername);
+  };
+
+  const handleLogOut = () => {
+    Alert.alert('Confirm Log Out', 'Are you sure you want to log out?', [
+      {text: 'Cancel', style: 'cancel'},
+      {
+        text: 'I am sure',
+        onPress: () => {
+          setEnteredConfig('');
+        },
+      },
+    ]);
   };
 
   return (
@@ -43,7 +60,7 @@ const AccountScreen = () => {
         <TextInput
           placeholder={enteredConfig.name}
           style={styles.input}
-          onChangeText={(event) => setEnteredUsername(event)}
+          onChangeText={(event) => inputLetterHandler(event)}
           value={enteredUsername}
           placeholderTextColor={
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
@@ -60,7 +77,7 @@ const AccountScreen = () => {
           placeholderTextColor={
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
           }
-          onChangeText={(event) => setEnteredIP(event)}
+          onChangeText={(event) => inputIPHandler(event)}
           value={enteredIp}
         />
       </View>
@@ -82,16 +99,23 @@ const AccountScreen = () => {
         onPress={() => LogInHandler()}>
         <Text style={styles.button}>Save</Text>
       </TouchableOpacity>
-
       <Text style={styles.titleLogout}>
         You can come back whenever you want!
       </Text>
-      <SettingOption
-        title="Log Out"
-        logout={true}
-        style={{marginTop: 8}}
-        arrow={true}
-      />
+      <TouchableOpacity
+        style={styles.buttonLogout}
+        onPress={() => {
+          handleLogOut();
+        }}>
+        <Text style={styles.buttonText}>Log out</Text>
+
+        <Icon
+          name="chevron-forward-outline"
+          type="ionicon"
+          color={'black'}
+          size={20}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -138,6 +162,19 @@ const styles = StyleSheet.create({
     color: Colors.lightMode.darkGrey,
     paddingLeft: 40,
     marginTop: 50,
+  },
+  buttonLogout: {
+    width: '100%',
+    backgroundColor: Colors.lightMode.lightGrey,
+    paddingVertical: 13,
+    paddingHorizontal: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: Colors.lightMode.darkGrey,
   },
 });
 
