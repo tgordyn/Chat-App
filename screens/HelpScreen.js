@@ -4,14 +4,11 @@ import {List} from 'react-native-paper';
 import {Icon} from 'react-native-elements';
 import {useTheme} from '../utils/ThemeContext';
 
-
 const HelpScreen = (props) => {
   const [expandedUser, setExpandedUser] = useState(false);
   const [expandedIp, setExpandedIp] = useState(false);
   const [expandedPort, setExpandedPort] = useState(false);
-  const {children} = props;
   const {colors, isDark} = useTheme();
-  console.log('darkmodeee', isDark);
 
   const styles = {
     screen: {

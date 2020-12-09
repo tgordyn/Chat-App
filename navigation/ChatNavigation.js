@@ -7,13 +7,53 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AccountScreen from '../screens/AccountScreen';
 import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';
-import {Colors, DARKMODE} from '../utils/Colors';
 import {Icon} from 'react-native-elements';
+import {useTheme} from '../utils/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 function MyTabs() {
+  const {colors, isDark} = useTheme();
+
+  function MyStack() {
+    const headerStyle = {
+      headerStyle: {
+        borderBottomWidth: 0.5,
+        borderBottomColor: colors.bottomNavigation,
+        backgroundColor: colors.topNavigation,
+      },
+      headerTitleStyle: {
+        color: colors.font,
+      },
+      headerTintColor: colors.font,
+    };
+    return (
+      <Stack.Navigator initialRouteName="Settings">
+        <Stack.Screen
+          options={headerStyle}
+          name="Settings"
+          component={SettingsScreen}
+        />
+        <Stack.Screen
+          options={headerStyle}
+          name="Account"
+          component={AccountScreen}
+        />
+        <Stack.Screen
+          options={headerStyle}
+          name="Help"
+          component={HelpScreen}
+        />
+        <Stack.Screen
+          options={headerStyle}
+          name="About"
+          component={AboutScreen}
+        />
+      </Stack.Navigator>
+    );
+  }
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -23,17 +63,13 @@ function MyTabs() {
       tabBarOptions={{
         style: {
           height: 60,
-          backgroundColor: DARKMODE
-            ? Colors.darkMode.grey
-            : Colors.lightMode.lightGrey,
+          backgroundColor: colors.bottomNavigation,
         },
         labelStyle: {
           fontFamily: 'Roboto-Bold',
         },
-        activeTintColor: Colors.lightMode.blue,
-        inactiveTintColor: DARKMODE
-          ? Colors.darkMode.lightGrey
-          : Colors.lightMode.grey,
+        activeTintColor: colors.blue,
+        inactiveTintColor: colors.inactiveIcon,
         keyboardHidesTabBar: true,
       }}>
       <Tab.Screen
@@ -86,38 +122,4 @@ function MyTabs() {
   );
 }
 
-const headerStyle = {
-  headerStyle: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: Colors.darkMode.lightGrey,
-    backgroundColor: DARKMODE ? Colors.darkMode.grey : 'white',
-  },
-  headerTitleStyle: {
-    color: DARKMODE ? 'white' : 'black',
-  },
-  headerTintColor: DARKMODE ? 'white' : 'black',
-};
-function MyStack() {
-  return (
-    <Stack.Navigator initialRouteName="Settings">
-      <Stack.Screen
-        options={headerStyle}
-        name="Settings"
-        component={SettingsScreen}
-      />
-      <Stack.Screen
-        options={headerStyle}
-        name="Account"
-        component={AccountScreen}
-      />
-      <Stack.Screen options={headerStyle} name="Help" component={HelpScreen} />
-      <Stack.Screen
-        options={headerStyle}
-        name="About"
-        component={AboutScreen}
-      />
-    </Stack.Navigator>
-    
-  );
-}
 export default MyTabs;
