@@ -16,8 +16,8 @@ import {load, save} from '../utils/AsyncStorage.js';
 const AccountScreen = () => {
   const [enteredConfig, setEnteredConfig] = useState('');
   const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredIp, setEnteredIP] = useState('');
-  const [enteredPort, setEnteredPort] = useState('');
+  const [inputIP, setInputIP] = useState('');
+  const [inputPort, setInputPort] = useState('');
 
   useEffect(() => {
     load(setEnteredConfig);
@@ -29,16 +29,21 @@ const AccountScreen = () => {
   };
 
   const inputIPHandler = (inputIP) => {
-    setEnteredIP(inputIP);
+    setInputIP(inputIP);
   };
 
   const inputPortHandler = (inputPort) => {
     inputPort = inputPort.replace(/[^0-9]/g, '');
-    setEnteredPort(inputPort);
+    setInputPort(inputPort);
   };
 
   const LogInHandler = () => {
-    save(enteredUsername);
+    if (enteredUsername != '') {
+      save(enteredUsername, inputIP, inputPort);
+    } else {
+      save(enteredConfig.name, enteredConfig.ip, enteredConfig.port);
+    }
+    
   };
 
   const handleLogOut = () => {
@@ -78,7 +83,7 @@ const AccountScreen = () => {
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
           }
           onChangeText={(event) => inputIPHandler(event)}
-          value={enteredIp}
+          value={inputIP}
         />
       </View>
       <Text style={styles.title}>Port</Text>
@@ -88,7 +93,7 @@ const AccountScreen = () => {
           placeholder={enteredConfig.port}
           style={styles.input}
           onChangeText={(event) => inputPortHandler(event)}
-          value={enteredPort}
+          value={inputPort}
           placeholderTextColor={
             DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
           }
