@@ -10,7 +10,7 @@ const ChatHeader = (props) => {
 
   useEffect(() => {
     load(setName);
-    handleInitial(name.name);
+    //handleInitial(name.name);
     // console.log(name);
   }, [name]);
 
@@ -54,7 +54,7 @@ const ChatHeader = (props) => {
   return (
     <View style={styles.header}>
       <View style={styles.avatarContainer}>
-        <Text style={styles.avatarLetters}>{initial.toUpperCase()}</Text>
+        <Text style={styles.avatarLetters}>{initial}</Text>
       </View>
       <Text style={styles.name}>{name.name ? name.name : 'Username'}</Text>
     </View>
