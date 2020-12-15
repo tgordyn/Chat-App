@@ -15,6 +15,7 @@ const ChatScreen = () => {
   const {colors, isDark} = useTheme();
   const [chatMessage, setChatMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
+  const [user, setUser] = useState(null);
   //const [contador, setContador] = useState(0)
   //const ENDPOINT = 'ws://192.168.0.11:3000';
 
@@ -30,13 +31,15 @@ const ChatScreen = () => {
       socket.disconnect();
     }
   };
-  
+
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Connect');
+      setUser(socket.id);
     });
     return () => cleanUp();
   }, []);
+
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
@@ -47,13 +50,13 @@ const ChatScreen = () => {
   }, [chatMessages]);
 
   const submitChatMessage = () => {
-    socket.emit('chat message', chatMessage);
+    socket.emit('chat message', {chatMessage, user});
     setChatMessage('');
   };
 
   const chatMsgs = chatMessages.map((chatM, index) => (
     // <Text key={index + chatM}>{chatM}</Text>
-    <ChatItem key={index + chatM} index={index} message={chatM} />
+    <ChatItem key={index + chatM.chatMessage} index={index} message={chatM} user={user}/>
   ));
 
   return (
