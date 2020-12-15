@@ -56,7 +56,7 @@ const TypeMessage = () => {
         />
       </View>
       <TouchableOpacity
-        onPress={() => console.log('press')}
+        //onPress={() => console.log('press')}
         style={styles.sendButton}>
         <Icon
           name="chevron-forward-outline"
