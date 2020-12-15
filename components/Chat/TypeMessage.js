@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, TextInput, TouchableOpacity} from 'react-native';
-import {Colors, DARKMODE} from '../../utils/Colors';
 import {Icon} from 'react-native-elements';
 import {useTheme} from '../../utils/ThemeContext';
 
-const TypeMessage = () => {
+const TypeMessage = ({chatMessage, handleOnChange, submitChatMessage}) => {
   const {colors, isDark} = useTheme();
   const styles = {
     container: {
@@ -49,15 +48,15 @@ const TypeMessage = () => {
       <View style={styles.input}>
         <TextInput
           style={styles.inputText}
-          placeholderTextColor={
-            DARKMODE ? Colors.darkMode.lightGrey : Colors.lightMode.grey
-          }
+          autoCorrect={false}
+          placeholderTextColor={colors.font}
           placeholder="Type message"
+          value={chatMessage}
+          onChangeText={(text) => handleOnChange(text)}
+          onSubmitEditing={submitChatMessage}
         />
       </View>
-      <TouchableOpacity
-        //onPress={() => console.log('press')}
-        style={styles.sendButton}>
+      <TouchableOpacity onPress={submitChatMessage} style={styles.sendButton}>
         <Icon
           name="chevron-forward-outline"
           type="ionicon"
