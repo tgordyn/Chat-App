@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {View, FlatList} from 'react-native';
 import io from 'socket.io-client';
 import ChatHeader from '../components/Chat/ChatHeader';
 import ChatItem from '../components/Chat/ChatItem';
@@ -38,8 +37,7 @@ const ChatScreen = () => {
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
-      setChatMessages([msg, ...chatMessages]);
-      console.log('test');
+      setChatMessages([...chatMessages, msg]);
     });
     return () => socket.off();
   }, [chatMessages]);
@@ -52,19 +50,12 @@ const ChatScreen = () => {
     setChatMessage(text);
   };
 
-  const chatMsgs = chatMessages.map((chatM, index) => (
-    <ChatItem
-      key={index + chatM.chatMessage}
-      index={index}
-      message={chatM}
-      user={user}
-    />
-  ));
+  const renderItem = ({item}) => <ChatItem message={item} user={user} />;
 
   return (
     <View style={styles.screen}>
       <ChatHeader />
-      <ScrollView>{chatMsgs}</ScrollView>
+      <FlatList data={chatMessages} renderItem={renderItem} />
       <TypeMessage
         submitChatMessage={submitChatMessage}
         handleOnChange={handleOnChange}
