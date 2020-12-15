@@ -33,10 +33,16 @@ const ChatItem = (props) => {
       color: colors.font,
     },
   };
-  const bubbleStyle = props.message.user == props.user ? styles.sent : styles.received;
+  const bubbleStyle =
+    props.message.user == props.user ? styles.sent : styles.received;
 
   return (
-    <View style={props.sent ? styles.sentContainer : styles.receivedContainer}>
+    <View
+      style={
+        props.message.user == props.user
+          ? styles.sentContainer
+          : styles.receivedContainer
+      }>
       <View style={{...styles.bubble, ...bubbleStyle}}>
         <Text style={styles.message}>{props.message.chatMessage}</Text>
       </View>
