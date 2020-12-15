@@ -1,20 +1,22 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {TextInput, FlatList, StyleSheet, Text, View} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 import io from 'socket.io-client';
 import ChatHeader from '../components/Chat/ChatHeader';
-import ChatItem from "../components/Chat/ChatItem";
-import TypeMessage from "../components/Chat/TypeMessage.js";
+import ChatItem from '../components/Chat/ChatItem';
+import TypeMessage from '../components/Chat/TypeMessage.js';
 import {Colors, DARKMODE} from '../utils/Colors';
 import {useTheme} from '../utils/ThemeContext';
+const socket = io('ws://192.168.0.11:3000');
+socket.connect();
 
-let socket;
+//let socket;
 const ChatScreen = () => {
   const {colors, isDark} = useTheme();
   const [chatMessage, setChatMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
-  const [contador, setContador] = useState(0)
-  const ENDPOINT = 'ws://192.168.0.11:3000';
+  //const [contador, setContador] = useState(0)
+  //const ENDPOINT = 'ws://192.168.0.11:3000';
 
   const styles = {
     screen: {
@@ -23,19 +25,25 @@ const ChatScreen = () => {
     },
   };
 
+  const cleanUp = () => {
+    if (!socket) {
+      socket.disconnect();
+    }
+  };
+  
   useEffect(() => {
-    socket = io(ENDPOINT);
-  }, [ENDPOINT]);
+    socket.on('connect', () => {
+      console.log('Connect');
+    });
+    return () => cleanUp();
+  }, []);
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
-      //console.log(msg);
-      console.log(contador + 1);
-      setContador(contador + 1);
-      //console.log(contador);
-      setChatMessages([...chatMessages, msg]);
+      setChatMessages([msg, ...chatMessages]);
+      console.log('test');
     });
-    console.log('array', chatMessages);
+    return () => socket.off();
   }, [chatMessages]);
 
   const submitChatMessage = () => {
@@ -45,11 +53,7 @@ const ChatScreen = () => {
 
   const chatMsgs = chatMessages.map((chatM, index) => (
     // <Text key={index + chatM}>{chatM}</Text>
-    <ChatItem 
-    key={index + chatM}
-    index={index}
-    message={chatM}
-    />
+    <ChatItem key={index + chatM} index={index} message={chatM} />
   ));
 
   return (
@@ -65,10 +69,8 @@ const ChatScreen = () => {
           setChatMessage(chatMessage);
         }}
       />
-      <ScrollView>
-       {chatMsgs}
-      </ScrollView>
-      <TypeMessage 
+      <ScrollView>{chatMsgs}</ScrollView>
+      <TypeMessage
       // autoCorrect={false}
       // value={chatMessage}
       // onSubmitEditing={() => submitChatMessage()}
