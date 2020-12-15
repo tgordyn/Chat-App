@@ -3,6 +3,9 @@ import {View} from 'react-native';
 import {List} from 'react-native-paper';
 import {Icon} from 'react-native-elements';
 import {useTheme} from '../utils/ThemeContext';
+import ListSection from 'react-native-paper/lib/commonjs/components/List/ListSection';
+import ListAccordion from 'react-native-paper/lib/commonjs/components/List/ListAccordion';
+import ListItem from 'react-native-paper/lib/commonjs/components/List/ListItem';
 
 const HelpScreen = (props) => {
   const [expandedUser, setExpandedUser] = useState(false);
@@ -38,11 +41,11 @@ const HelpScreen = (props) => {
 
   return (
     <View style={styles.screen}>
-      <List.Section
+      <ListSection
         title="Preguntas Frecuentes"
         titleStyle={{...styles.styleSectionTitle}}>
         <View style={styles.hr}></View>
-        <List.Accordion
+        <ListAccordion
           expandedUser={expandedUser}
           onPress={() => setExpandedUser(!expandedUser)}
           title="Configuración de Usuario"
@@ -58,14 +61,14 @@ const HelpScreen = (props) => {
               size={25}
             />
           )}>
-          <List.Item
+          <ListItem
             title="Ingresar su nombre de usuario"
             titleStyle={{...styles.listItem, fontFamily: 'Roboto-Bold'}}
             description="La configuración admite campos alfa-numéricos"
             descriptionStyle={{...styles.listItem}}
           />
-        </List.Accordion>
-        <List.Accordion
+        </ListAccordion>
+        <ListAccordion
           title="Configuración de IP"
           expandedUser={expandedIp}
           onPress={() => setExpandedIp(!expandedIp)}
@@ -82,14 +85,14 @@ const HelpScreen = (props) => {
               size={25}
             />
           )}>
-          <List.Item
+          <ListItem
             title="Ingresar número de IP"
             titleStyle={{...styles.listItem, fontFamily: 'Roboto-Bold'}}
             description="La configuración sólo admite campos numéricos"
             descriptionStyle={{...styles.listItem}}
           />
-        </List.Accordion>
-        <List.Accordion
+        </ListAccordion>
+        <ListAccordion
           title="Configuración de Puerto"
           expandedPort={expandedPort}
           onPress={() => setExpandedPort(!expandedPort)}
@@ -105,14 +108,14 @@ const HelpScreen = (props) => {
               size={25}
             />
           )}>
-          <List.Item
+          <ListItem
             title="Ingresar número de Puerto"
             titleStyle={{...styles.listItem, fontFamily: 'Roboto-Bold'}}
             description="La configuración sólo admite campos numéricos"
             descriptionStyle={{...styles.listItem}}
           />
-        </List.Accordion>
-      </List.Section>
+        </ListAccordion>
+      </ListSection>
     </View>
   );
 };
