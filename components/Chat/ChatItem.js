@@ -7,10 +7,10 @@ const ChatItem = (props) => {
   const styles = {
     bubble: {
       paddingVertical: 8,
-      paddingHorizontal: 20,
+      paddingHorizontal: 17,
       marginHorizontal: 20,
       marginVertical: 5,
-      borderRadius: 15,
+      borderRadius: 20,
       maxWidth: '70%',
       width: 'auto',
     },
@@ -32,15 +32,48 @@ const ChatItem = (props) => {
       fontSize: 18,
       color: colors.font,
     },
+    username: {
+      color: colors.grey,
+      fontSize: 12,
+      marginHorizontal: 40,
+    },
+    hour: {
+      color: colors.font,
+      opacity: 0.5,
+      fontSize: 11,
+      marginHorizontal: 35,
+      marginBottom: 3,
+    },
   };
-  const bubbleStyle = props.message.user == props.user ? styles.sent : styles.received;
+  const bubbleStyle =
+    props.message.user == props.user ? styles.sent : styles.received;
 
   return (
-    <View style={props.message.user == props.user ? styles.sentContainer : styles.receivedContainer}>
-      <View style={{...styles.bubble, ...bubbleStyle}}>
-        <Text style={styles.message}>{props.message.chatMessage}</Text>
+    <>
+      <View
+        style={
+          props.message.user == props.user
+            ? styles.sentContainer
+            : styles.receivedContainer
+        }>
+        {/* <Text style={styles.username}>
+          {props.message.user == props.user ? 'Me:' : 'Username:'}
+        </Text> */}
+        <View style={{...styles.bubble, ...bubbleStyle}}>
+          <Text style={styles.message}>{props.message.chatMessage}</Text>
+        </View>
+        <Text style={styles.hour}>
+          {props.message.chatMessage.length >= 15 &&
+          props.message.user !== props.user
+            ? `${'Nombre'} - `
+            : props.message.chatMessage.length >= 10 &&
+              props.message.user == props.user
+            ? 'Me - '
+            : null}
+          {props.message.hour}
+        </Text>
       </View>
-    </View>
+    </>
   );
 };
 

@@ -10,13 +10,12 @@ const ChatHeader = (props) => {
 
   useEffect(() => {
     load(setName);
-    //handleInitial(name.name);
-    // console.log(name);
+    handleInitial(name.name);
   }, [name]);
 
   const handleInitial = (string) => {
     if (typeof string == 'string') {
-      setInitial(string[0]);
+      setInitial(string[0].toUpperCase());
     } else {
       setInitial('U');
     }

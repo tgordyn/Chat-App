@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-//import {List} from 'react-native-paper';
-
 import ListSection from 'react-native-paper/lib/commonjs/components/List/ListSection';
 import ListAccordion from 'react-native-paper/lib/commonjs/components/List/ListAccordion';
 import ListItem from 'react-native-paper/lib/commonjs/components/List/ListItem';
