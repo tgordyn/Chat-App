@@ -12,9 +12,7 @@ const ChatScreen = () => {
   const [chatMessage, setChatMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [user, setUser] = useState(null);
-  // const [data, setData] = useState(null);
-  // const socket = io(data ? `ws://${data.ip}:${data.port}` : null);
-  const socket = io('ws://192.168.0.8:3000');
+  const socket = io('ws://192.168.0.106:3000');
   socket.connect();
 
   const styles = {
@@ -37,10 +35,6 @@ const ChatScreen = () => {
     });
     return () => cleanUp();
   }, []);
-
-  // useEffect(() => {
-  //   load(setData);
-  // }, [data]);
 
   useEffect(() => {
     socket.on('chat message', (msg) => {
