@@ -8,33 +8,66 @@ import AsyncStorage from '@react-native-community/async-storage';
  * @param  {Boolean} theme The config for the dark and ligh mode
  * This create a Json and can be loaded with the load(setter) function
  */
-export const save = async (name = '', ip = '', port = '', theme = '') => {
-  let user = {};
-  user = {
-    name: name,
-    ip: ip,
-    port: port,
-    theme: theme,
-  };
 
+export const setIp = async (ip) => {
   try {
-    await AsyncStorage.setItem('User', JSON.stringify(user));
+    await AsyncStorage.setItem('ip', ip);
   } catch (err) {
     alert(err);
   }
 };
 
-/**
- * Load the json with all the config (name,ip,port,theme)
- * @param  {SetterState} setter The State setter of the hook,
- * Example to use the Object: {enteredUsername.name} to use the name
- */
-export const load = async (setter) => {
+export const setPort = async (port) => {
   try {
-    let userJson = await AsyncStorage.getItem('User');
-    if (userJson !== null) {
-      setter(JSON.parse(userJson));
-    }
+    await AsyncStorage.setItem('port', port);
+  } catch (err) {
+    alert(err);
+  }
+};
+
+export const setName = async (name) => {
+  try {
+    await AsyncStorage.setItem('name', name);
+  } catch (err) {
+    alert(err);
+  }
+};
+
+export const setTheme = async (theme) => {
+  try {
+    await AsyncStorage.setItem('theme', theme);
+  } catch (err) {
+    alert(err);
+  }
+};
+
+export const getIp = async (setter) => {
+  try {
+    setter(await AsyncStorage.getItem('ip'));
+  } catch (err) {
+    alert(err);
+  }
+};
+
+export const getPort = async (setter) => {
+  try {
+    setter(await AsyncStorage.getItem('port'));
+  } catch (err) {
+    alert(err);
+  }
+};
+
+export const getName = async (setter) => {
+  try {
+    setter(await AsyncStorage.getItem('name'));
+  } catch (err) {
+    alert(err);
+  }
+};
+
+export const getTheme = async (setter) => {
+  try {
+    setter(await AsyncStorage.getItem('theme'));
   } catch (err) {
     alert(err);
   }

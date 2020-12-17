@@ -1,5 +1,6 @@
 import React, {createContext, useState, useContext, useEffect} from 'react';
 import {lightColors, darkColors} from './Colors';
+import {getTheme} from '../utils/AsyncStorage.js';
 
 export const ThemeContext = createContext({
   isDark: false,
@@ -9,12 +10,12 @@ export const ThemeContext = createContext({
 
 export const ThemeProvider = (props) => {
   const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {}, [isDark]);
-
+  const [theme, setLocalTheme] = useState('aaa');
+  getTheme(setLocalTheme);
+  useEffect(() => {}, []);
   const defaultTheme = {
     isDark,
-    colors: isDark ? darkColors : lightColors,
+    colors: theme == 'dark' ? darkColors : lightColors,
     setScheme: (scheme) => setIsDark(scheme === 'dark'),
   };
 

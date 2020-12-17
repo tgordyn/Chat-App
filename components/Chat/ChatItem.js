@@ -47,7 +47,6 @@ const ChatItem = (props) => {
   };
   const bubbleStyle =
     props.message.user == props.user ? styles.sent : styles.received;
-
   return (
     <>
       <View

@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import {useTheme} from '../../utils/ThemeContext';
-import {load} from '../../utils/AsyncStorage';
 
 const ChatHeader = (props) => {
-  const [name, setName] = useState('');
   const {colors, isDark} = useTheme();
   const [initial, setInitial] = useState('U');
 
   useEffect(() => {
-    load(setName);
-    handleInitial(name.name);
-  }, [name]);
+    //handleInitial(props.name);
+  });
 
   const handleInitial = (string) => {
     if (typeof string == 'string') {
@@ -55,7 +52,7 @@ const ChatHeader = (props) => {
       <View style={styles.avatarContainer}>
         <Text style={styles.avatarLetters}>{initial}</Text>
       </View>
-      <Text style={styles.name}>{name.name ? name.name : 'Username'}</Text>
+      <Text style={styles.name}>{props.name ? props.name : 'Username'}</Text>
     </View>
   );
 };

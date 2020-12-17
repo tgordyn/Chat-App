@@ -3,14 +3,22 @@ import {TouchableOpacity, Switch, Text} from 'react-native';
 import {Colors} from '../utils/Colors';
 import {useTheme} from '../utils/ThemeContext';
 import {Icon} from 'react-native-elements';
-
+import {setTheme} from '../utils/AsyncStorage.js';
 
 const SettingOption = (props) => {
   const {setScheme, isDark} = useTheme();
   const {colors} = useTheme();
+
   const toggleScheme = () => {
-    isDark ? setScheme('light') : setScheme('dark');
+    if (isDark) {
+      setScheme('light');
+      setTheme('light');
+    } else {
+      setScheme('dark');
+      setTheme('dark');
+    }
   };
+
   const styles = {
     button: {
       width: '100%',
