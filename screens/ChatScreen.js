@@ -1,19 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {View, FlatList} from 'react-native';
-import io from 'socket.io-client';
+import {useFocusEffect} from '@react-navigation/native';
 import ChatHeader from '../components/Chat/ChatHeader';
 import ChatItem from '../components/Chat/ChatItem';
 import TypeMessage from '../components/Chat/TypeMessage.js';
+import {getIp, getPort, getName} from '../utils/AsyncStorage.js';
 import {useTheme} from '../utils/ThemeContext';
-// import {load} from '../utils/AsyncStorage';
+import io from 'socket.io-client';
 
 const ChatScreen = () => {
   const {colors, isDark} = useTheme();
+  const [ip, setLocalIp] = useState('');
+  const [port, setLocalPort] = useState('');
+  const [name, setLocalName] = useState('');
   const [chatMessage, setChatMessage] = useState('');
   const [chatMessages, setChatMessages] = useState([]);
   const [user, setUser] = useState(null);
-  const socket = io('ws://192.168.0.106:3000');
-  socket.connect();
+  const socket = useRef(null);
 
   const styles = {
     screen: {
@@ -24,45 +27,56 @@ const ChatScreen = () => {
 
   const cleanUp = () => {
     if (!socket) {
-      socket.disconnect();
+      socket.current.disconnect();
     }
   };
 
   useEffect(() => {
-    socket.on('connect', () => {
+    socket.current = io(`ws://${ip}:${port}`);
+    socket.current.connect();
+
+    socket.current.on('connect', () => {
       console.log('Connect');
-      setUser(socket.id);
+      setUser(socket.current.id);
     });
     return () => cleanUp();
-  }, []);
+  }, [ip, port]);
 
   useEffect(() => {
-    socket.on('chat message', (msg) => {
+    socket.current.on('chat message', (msg) => {
       setChatMessages([...chatMessages, msg]);
     });
-    return () => socket.off();
+    return () => socket.current.off();
   }, [chatMessages]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getIp(setLocalIp);
+      getPort(setLocalPort);
+      getName(setLocalName);
+    }, []),
+  );
 
   const submitChatMessage = () => {
     var hours = new Date();
     var minutes =
       hours.getMinutes() <= 9 ? `0${hours.getMinutes()}` : hours.getMinutes();
-    socket.emit('chat message', {
+    socket.current.emit('chat message', {
       chatMessage,
       user,
       hour: `${hours.getHours()}:${minutes}`,
     });
     setChatMessage('');
   };
+
   const handleOnChange = (text) => {
     setChatMessage(text);
   };
-
   const renderItem = ({item}) => <ChatItem message={item} user={user} />;
 
   return (
     <View style={styles.screen}>
-      <ChatHeader />
+      <ChatHeader name={name} />
       <FlatList
         data={chatMessages}
         renderItem={renderItem}
@@ -76,5 +90,4 @@ const ChatScreen = () => {
     </View>
   );
 };
-
 export default ChatScreen;
