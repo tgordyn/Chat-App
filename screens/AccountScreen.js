@@ -105,9 +105,15 @@ const AccountScreen = () => {
   };
 
   const LogInHandler = () => {
-    setIp(inputIP);
-    setPort(inputPort);
-    setName(enteredUsername);
+    if (inputPort !== '') {
+      setPort(inputPort);
+    }
+    if (inputIP !== '') {
+      setIp(inputIP);
+    }
+    if (enteredUsername !== '') {
+      setName(enteredUsername);
+    }
     Keyboard.dismiss();
   };
 
